@@ -1,18 +1,26 @@
 #!/usr/bin/env ruby
 
-if ARGV.empty?
+def print_usage_instructions
   puts <<EOS
 I'd cheer for you, if only I knew who you were :(
 Try again with `./cheers.rb [Name] [MM/DD Birthday]
 EOS
+end
+
+if ARGV.empty?
+  print_usage_instructions
 else
   original_name = ARGV[0]
-  cheerable_name = original_name.upcase.gsub(/\W/, "")
-  cheerable_name.each_char do |char|
-    article = "n" if "HALFNORSEMIX".include? char
-    puts "Give me a#{article}... #{char}"
+  cheerable_name = original_name.upcase.gsub(/[^A-Z]/, "")
+  if cheerable_name.empty?
+    print_usage_instructions
+  else
+    cheerable_name.each_char do |char|
+      article = "n" if "HALFNORSEMIX".include? char
+      puts "Give me a#{article}... #{char}"
+    end
+    puts "#{original_name}’s just GRAND!"
+    puts ""
+    puts "I would wish you a Happy Birthday, if I knew when that was!"
   end
-  puts "#{original_name}’s just GRAND!"
-  puts ""
-  puts "I would wish you a Happy Birthday, if I knew when that was!"
 end
